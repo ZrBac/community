@@ -36,11 +36,12 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser user = githubProvider.getUser(accessToken);
         if(user !=null) {
+            //login succeeded, write cookie and session
             request.getSession().setAttribute("user",user);
-            return "redirect/";
+            return "redirect:/";
         } else {
-
+            //login failed, try again
         }
-        return "redirect/";
+        return "redirect:/";
     }
 }

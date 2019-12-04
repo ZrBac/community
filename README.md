@@ -1,28 +1,28 @@
-## 码匠社区
+## ZrBac's Community
 
-## 快速运行
-1. 安装必备工具  
+## QuickStart
+1. utils  
 JDK，Maven
-2. 克隆代码到本地  
-3. 运行命令创建数据库脚本
+2. clone code  
+3. create database
 ```sh
 mvn flyway:migrate
 ```
-4. 运行打包命令
+4. package
 ```sh
 mvn package
 ```
-5. 运行项目  
+5. run project  
 ```sh
 java -jar target/community-0.0.1-SNAPSHOT.jar
 ```
-6. 访问项目
+6. local project
 ```
 http://localhost:8887
 ```
 
 
-## 资料
+## Docs
 [Spring 文档](https://spring.io/guides)    
 [Spring Web](https://spring.io/guides/gs/serving-web-content/)   
 [es](https://elasticsearch.cn/explore)    
@@ -38,7 +38,7 @@ http://localhost:8887
 [UFfile SDK](https://github.com/ucloud/ufile-sdk-java)  
 [Count(*) VS Count(1)](https://mp.weixin.qq.com/s/Rwpke4BHu7Fz7KOpE2d3Lw)  
 
-## 工具
+## Tools
 [Git](https://git-scm.com/download)   
 [Visual Paradigm](https://www.visual-paradigm.com)    
 [Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
@@ -49,7 +49,7 @@ http://localhost:8887
 [Live Reload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei/related)  
 [Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 
-## 脚本
+## Scripts
 ```sql
 CREATE TABLE USER
 (

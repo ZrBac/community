@@ -2,6 +2,8 @@ package life.zrbac.community.controller;
 
 import life.zrbac.community.dto.AccessTokenDTO;
 import life.zrbac.community.dto.GithubUser;
+import life.zrbac.community.mapper.UserMapper;
+import life.zrbac.community.model.User;
 import life.zrbac.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
@@ -18,10 +21,15 @@ public class AuthorizeController {
 
     @Value("${github.client.id}")
     private String clientId;
+
     @Value("${github.client.secret}")
     private  String clientSecret;
+
     @Value("${github.redirect.uri}")
     private String redirectUri;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
@@ -34,10 +42,17 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(accessToken);
-        if(user !=null) {
+        GithubUser githubUser = githubProvider.getUser(accessToken);
+        if(githubUser !=null) {
             //login succeeded, write cookie and session
-            request.getSession().setAttribute("user",user);
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+            request.getSession().setAttribute("user",githubUser);
             return "redirect:/";
         } else {
             //login failed, try again

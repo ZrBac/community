@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>ZrBac's Community</title>
+    <title>Create Post</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
@@ -16,7 +16,7 @@
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">ZrBac's Community</span>
             </button>
-            <a class="navbar-brand" href="#">ZrBac's Community</a>
+            <a class="navbar-brand" href="/">ZrBac's Community</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
@@ -48,25 +48,50 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span>Discoveries</h2>
+            <h2><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Create Post</h2>
             <hr>
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="https://avatars0.githubusercontent.com/u/33156501?v=4">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">Media heading</h4>
-                    click to see <br>
-                    <span class="text-desc">2 reply· 16 view· 2 hour ago</span>
 
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">Title(brief description):</label>
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title"
+                           placeholder="Title...">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="title">Description(describe your problem thoroughly):</label>
+                    <textarea name="description" id="description" th:text="${description}" class="form-control"
+                              cols="30"
+                              rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="title">Add Tag:</label>
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag"
+                           placeholder="Input tag, use ',' to separate">
+                </div>
 
+                <div class="container-fluid main">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                 th:text="${error}"
+                                 th:if="${error != null}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"></div>
-        <h3>Popular Topics</h3>
+        <h3> Post Guide</h3>
+        • Problem title: a brief description of your problem <br>
+        • Problem description: describe your problem as thorough as possible, make sure your description is
+        clear enough to understand, provide some data source of your problem <br>
+        • Choose tag: choose one or multiple tags on your problem, use ',' to separate them <br>
     </div>
 </div>
 </body>
